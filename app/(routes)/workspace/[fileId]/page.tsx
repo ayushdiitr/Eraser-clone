@@ -19,11 +19,10 @@ function WorkSpace({ params }: any) {
     setFileData(result);  
   }
 
-  const unwrappedParams = use(params);
 
 
   useEffect(() => {
-    unwrappedParams.fieldId && getFileData();
+    params.fileId && getFileData();
   },[])
 
 
@@ -35,7 +34,7 @@ function WorkSpace({ params }: any) {
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Document */}
         <div className="h-screen">
-          <Editor onSaveTrigger={triggerSave} fileData={fileData} fileId={unwrappedParams.fileId} />
+          <Editor onSaveTrigger={triggerSave} fileData={fileData} fileId={params.fileId} />
         </div>
 
         {/* Canvas */}

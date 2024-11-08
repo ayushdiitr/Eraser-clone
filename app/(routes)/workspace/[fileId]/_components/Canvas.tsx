@@ -1,17 +1,29 @@
-import dynamic from "next/dynamic";
+import React from "react";
+import { Excalidraw, MainMenu } from "@excalidraw/excalidraw";
 
-// Since client components get prerenderd on server as well hence importing 
-// the excalidraw stuff dynamically with ssr false
-
-const ExcalidrawWrapper = dynamic(
-  async () => (await import("./ExceliWrapper")).default,
-  {
-    ssr: false,
-  },
-);
-
-export default function Canvas() {
+function Canvas() {
   return (
-    <ExcalidrawWrapper />      
+    <div style={{ height: "670px" }}>
+      <Excalidraw
+        UIOptions={{
+          canvasActions: {
+            saveToActiveFile: false,
+            loadScene: false,
+          },
+        }}
+        onChange={(excalidrawElements, appState, files) =>
+          console.log(excalidrawElements)
+        }
+      >
+        <MainMenu>
+          <MainMenu.DefaultItems.ClearCanvas />
+          <MainMenu.DefaultItems.SaveAsImage />
+          <MainMenu.DefaultItems.ChangeCanvasBackground />
+
+        </MainMenu>
+      </Excalidraw>
+    </div>
   );
 }
+
+export default Canvas;
