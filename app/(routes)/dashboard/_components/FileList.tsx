@@ -61,7 +61,10 @@ function FileList() {
           <tbody className="divide-y divide-gray-200">
             {fileList &&
               fileList?.map((file: FILE, index: number) => (
-                <tr className="odd:bg-gray-50 cursor-pointer" onClick={() => router.push('/workspace/'+file._id)}>
+                <tr
+                  className="odd:bg-gray-50 cursor-pointer"
+                  onClick={() => router.push("/workspace/" + file._id)}
+                >
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {file.fileName}
                   </td>
@@ -73,7 +76,7 @@ function FileList() {
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     <Image
-                      src={user?.picture || "/default-profile.png"}
+                      src={user?.picture as string}
                       className="rounded-full"
                       alt="user"
                       width={30}
@@ -87,8 +90,8 @@ function FileList() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuItem className="gap-3 cursor-pointer">
-                           <Archive className="h-4 w-4"/> Archive</DropdownMenuItem>
-                        
+                          <Archive className="h-4 w-4" /> Archive
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </td>
