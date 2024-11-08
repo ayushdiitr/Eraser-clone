@@ -11,6 +11,7 @@ import ImageTool from "@editorjs/image";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { FILE } from "@/app/(routes)/dashboard/_components/FileList";
 
 const rawData = {
   time: 1550476186479,
@@ -27,7 +28,7 @@ const rawData = {
   version: "2.8.1",
 };
 
-function Editor({ onSaveTrigger, fileId }: any) {
+function Editor({ onSaveTrigger, fileId, fileData }: {onSaveTrigger: boolean, fileId: string, fileData: FILE|any}) {
   const ref = useRef<EditorJS>();
   const [data, setData] = useState(rawData);
 
@@ -66,15 +67,16 @@ function Editor({ onSaveTrigger, fileId }: any) {
           },
         },
       },
-
-      data: data,
+      
+      // data: data,
+      data: fileData.document? JSON.parse(fileData?.document):data,
     });
     ref.current = editor;
   };
 
   useEffect(() => {
-    initEditor();
-  }, []);
+    fileData&&initEditor();
+  }, [fileData]);
 
   const onSaveDocument = () => {
     if (ref.current) {

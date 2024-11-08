@@ -43,3 +43,14 @@ export const updateDocument = mutation({
     return await ctx.db.patch(args._id, {document: args.document});
   }
 })
+
+export const getFileById = query({
+  args:{
+    _id: v.id('files'),
+  },
+
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args._id);
+  }
+  
+})

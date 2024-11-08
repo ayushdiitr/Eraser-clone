@@ -1,14 +1,31 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import WorkSpaceHeader from "./_components/Header";
 import Editor from "./_components/Editor";
 import { use } from "react";
+import { api } from "@/convex/_generated/api";
+import { useConvex } from "convex/react";
+import { FILE } from "../../dashboard/_components/FileList";
+import Canvas from "./_components/Canvas";
+
+function WorkSpace({ params }: any) {
+  
+  const [fileData, setFileData] = useState<FILE>();
+  const [triggerSave, setTriggerSave] = useState(false);
+
+  const convex = useConvex();
+  const getFileData = async() => {
+    const result = await convex.query(api.files.getFileById,{_id:params.fileId});
+    setFileData(result);  
+  }
+
+  const unwrappedParams = use(params);
 
 
-function WorkSpace({params}:any) {
-    
-    
-    const [triggerSave, setTriggerSave] = useState(false);
+  useEffect(() => {
+    unwrappedParams.fieldId && getFileData();
+  },[])
+
 
   return (
     <div>
@@ -18,11 +35,13 @@ function WorkSpace({params}:any) {
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Document */}
         <div className="h-screen">
-            <Editor onSaveTrigger={triggerSave} fileId={params.fileId} />
+          <Editor onSaveTrigger={triggerSave} fileData={fileData} fileId={unwrappedParams.fileId} />
         </div>
 
         {/* Canvas */}
-        <div className="h-screen bg-red-400">Main Content</div>
+        <div className="h-screen border-l">
+          <Canvas />
+        </div>
       </div>
     </div>
   );
