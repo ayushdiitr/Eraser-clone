@@ -39,7 +39,7 @@ function WorkSpace({ params }: any) {
 
         {/* Canvas */}
         <div className="h-screen border-l">
-          <Canvas />
+          <Canvas onSaveTrigger={triggerSave} fileData={fileData} fileId={params.fileId} />
         </div>
       </div>
     </div>

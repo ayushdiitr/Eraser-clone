@@ -20,7 +20,7 @@ export interface FILE {
   createdBy: string;
   document: string;
   teamId: string;
-  whiteBoard: string;
+  whiteboard: string;
   _id: string;
   _creationTime: number;
 }
@@ -73,7 +73,7 @@ function FileList() {
                   </td>
                   <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                     <Image
-                      src={user?.picture}
+                      src={user?.picture || "/default-profile.png"}
                       className="rounded-full"
                       alt="user"
                       width={30}
